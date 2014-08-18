@@ -1,20 +1,22 @@
-################################################################################
-#                                                                              #
-# smoog.py                                                                     #
-#   Easily encrypt files in your git repository.                               #
-#   Copyright (C) 2014 Kevin Y. Chen kyc2915@mit.edu                           #
-#                                                                              #
-# See usage instructions on github:                                            #
-#   https://github.com/kevinychen/smoog                                        #
-#                                                                              #
-# Credits to                                                                   #
-#   git-encrypt project:                                                       #
-#     https://github.com/shadowhand/git-encrypt                                #
-#     Copyright (c) 2011 Woody Gilk woody.gilk@gmail.com                       #
-#   git-encrypt-init.sh script by Jay Taylor [@jtaylor]                        #
-#     Most of this python code is based on this shell script.                  #
-#                                                                              #
-################################################################################
+######################################################################
+#                                                                    #
+# smoog.py                                                           #
+#   Easily encrypt files in your git repository.                     #
+#   Copyright (c) 2014 Kevin Y. Chen kyc2915@mit.edu                 #
+#                                                                    #
+# See usage instructions on github:                                  #
+#   https://github.com/kevinychen/smoog                              #
+#                                                                    #
+# Credits to                                                         #
+#   git-encrypt project:                                             #
+#     https://github.com/shadowhand/git-encrypt                      #
+#     Copyright (c) 2011 Woody Gilk woody.gilk@gmail.com             #
+#   git-encrypt-init.sh script by Jay Taylor [@jtaylor]              #
+#     https://github.com/shadowhand/git-encrypt/blob/develop/        #
+#         git-encrypt-init.sh                                        #
+#     Most of this code is based on the shell script.                #
+#                                                                    #
+######################################################################
 
 
 # CONFIGURATION
@@ -26,31 +28,6 @@ SALT = '8c6a5d9ae074282e'
 # Files to be encrypted: list of patterns recognized by gitattributes:
 #  https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html.
 SENSITIVE_FILES = ['secret.txt']
-
-
-################################################################################
-#                                                                              #
-# LICENSE                                                                      #
-#                                                                              #
-# Permission is hereby granted, free of charge, to any person obtaining a copy #
-#   of this software and associated documentation files (the "Software"), to   #
-#   deal in the Software without restriction, including without limitation the #
-#   rights to use, copy, modify, merge, publish, distribute, sublicense,       #
-#   and/or sell copies of the Software, and to permit persons to whom the      #
-#   Software is furnished to do so, subject to the following conditions:       #
-#                                                                              #
-#   The above copyright notice and this permission notice shall be included in #
-#   all copies or substantial portions of the Software.                        #
-#                                                                              #
-#   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR #
-#   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,   #
-#   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL    #
-#   THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER #
-#   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING    #
-#   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER        #
-#   DEALINGS IN THE SOFTWARE.                                                  #
-#                                                                              #
-################################################################################
 
 
 ##############################
@@ -172,4 +149,31 @@ if __name__ == '__main__':
         exit(1)
     init()
     os.system('git reset --hard HEAD')
+
+
+################################################################################
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2014 Kevin Y. Chen kyc2915@mit.edu
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+################################################################################
 
