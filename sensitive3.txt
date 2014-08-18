@@ -1,3 +1,0 @@
-Even more secrets, hooray!
-After deleting .gitattributes
-

@@ -75,10 +75,10 @@ openssl enc -d -base64 -aes-256-ecb -k $PASS_FIXED -in "$1" 2> /dev/null || cat 
 
 # Git config links to filter scripts
 SCRIPT_CONFIG = """[filter "openssl"]
-	smudge = .git/smoog/smudge_filter_openssl
-	clean = .git/smoog/clean_filter_openssl
+	smudge = {0}/smudge_filter_openssl
+	clean = {0}/clean_filter_openssl
 [diff "openssl"]
-	textconv = .git/smoog/diff_filter_openssl
+	textconv = {0}/diff_filter_openssl
 """
 
 # Initialize SMOOG
