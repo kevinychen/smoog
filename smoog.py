@@ -45,6 +45,7 @@ import getpass
 import re
 import stat
 
+ME = 'smoog.py'
 SMOOG_DIR = '.git/smoog'
 GIT_CONFIG = '.git/config'
 GIT_ATTRIBUTES = '.git/info/attributes'
@@ -137,6 +138,13 @@ def init():
         for sensitiveFile in SENSITIVE_FILES:
             fh.write('{0} filter=openssl diff=openssl\n'.format(sensitiveFile))
 
+# Reset all files except for smoog.py, with decryption enabled
+def reset():
+    tempLoc = os.path.join(SMOOG_DIR, 'temp')
+    os.rename(ME, tempLoc)
+    os.system('git reset --hard HEAD')
+    os.rename(tempLoc, ME)
+
 
 # Run SMOOG
 if __name__ == '__main__':
@@ -148,7 +156,7 @@ if __name__ == '__main__':
         print 'Initialization script cancelled.'
         exit(1)
     init()
-    os.system('git reset --hard HEAD')
+    reset()
 
 
 ################################################################################
