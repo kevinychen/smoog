@@ -35,9 +35,16 @@ enter a passphrase consisting of one or more alphanumeric characters.
     $ python smoog.py
     Enter passphrase: secret
     Confirm passphrase: secret
+    ```
 
 5. Add sensitive files, commit, and push. When pushing to remote, your
 sensitive files will be automatically encrypted.
+
+    ```shell
+    $ git add sensitive.txt
+    $ git commit
+    $ git push
+    ```
 
 ### Cloning a Git repository protected by Smoog
 
@@ -53,16 +60,20 @@ automatically encrypted.
 
 ### Adding additional sensitive files
 
-If you wish to modify the list of sensitive files, follow these steps.
+If you change `SENSITIVE_FILES` in smoog.py, you must run smoog.py again. When
+others pull your modified code, they will need to run `python smoog.py reset`
+to decrypt the new files.
 
-1. Change `SENSITIVE_FILES` in smoog.py as desired.
+*IMPORTANT:* Every time you git add a sensitive file, make sure that you have
+run smoog.py beforehand with that file pattern listed in `SENSITIVE_FILES`.
 
-2. Re-run smoog.py. You will first be prompted to delete some Smoog settings
-files. Then you will be prompted for a passphrase. You may use your old
-passphrase or change to a new passphrase (but if you change the passphrase,
-you will need to commit a new version of all sensitive files).
+### Changing passphrases/resetting Smoog
 
-3. Add new sensitive files, commit, and push.
+At any time, run `python smoog.py reset` to reset the passphrase or re-sync
+Smoog with your repository.
+
+*IMPORTANT:* This command resets your git repository to HEAD, so make sure
+that all your changes are committed before running this command.
 
 ## Credits
 
