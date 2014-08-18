@@ -38,6 +38,7 @@ SENSITIVE_FILES = ['secret.txt']
 #                            #
 ##############################
 
+import sys
 import os
 import shutil
 import random
@@ -58,15 +59,13 @@ def validPass(p):
 
 # Clean all references to smoog in this git repository
 def clean():
-    if os.path.exists(SMOOG_DIR):
+    resetPass = len(sys.argv) > 1 and sys.argv[1] == 'reset'
+    if resetPass and os.path.exists(SMOOG_DIR):
         print 'Remove {0} (y/n)?'.format(SMOOG_DIR),
         if not isConfirm(raw_input()):
             return False
         shutil.rmtree(SMOOG_DIR)
     if os.path.exists(GIT_ATTRIBUTES):
-        print 'Remove {0} (y/n)?'.format(GIT_ATTRIBUTES),
-        if not isConfirm(raw_input()):
-            return False
         os.remove(GIT_ATTRIBUTES)
     return True
 
@@ -94,6 +93,13 @@ SCRIPT_CONFIG = """[filter "openssl"]
 [diff "openssl"]
 	textconv = {0}/diff_filter_openssl
 """
+
+# Add sensitive files to GIT_ATTRIBUTES
+def setAttributes():
+    print 'info: initializing file', GIT_ATTRIBUTES
+    with open(GIT_ATTRIBUTES, 'w') as fh:
+        for sensitiveFile in SENSITIVE_FILES:
+            fh.write('{0} filter=openssl diff=openssl\n'.format(sensitiveFile))
 
 # Initialize SMOOG
 def init():
@@ -132,12 +138,6 @@ def init():
         with open(GIT_CONFIG, 'a') as fh:
             fh.write(SCRIPT_CONFIG.format(SMOOG_DIR))
 
-    # Add sensitive files to GIT_ATTRIBUTES
-    print 'info: initializing file', GIT_ATTRIBUTES
-    with open(GIT_ATTRIBUTES, 'w') as fh:
-        for sensitiveFile in SENSITIVE_FILES:
-            fh.write('{0} filter=openssl diff=openssl\n'.format(sensitiveFile))
-
 # Reset all files except for smoog.py, with decryption enabled
 def reset():
     tempLoc = os.path.join(SMOOG_DIR, 'temp')
@@ -155,8 +155,10 @@ if __name__ == '__main__':
     if not clean():
         print 'Initialization script cancelled.'
         exit(1)
-    init()
-    reset()
+    setAttributes()
+    if not os.path.exists(SMOOG_DIR):
+        init()
+        reset()
 
 
 ################################################################################
