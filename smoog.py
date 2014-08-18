@@ -1,8 +1,23 @@
 ################################################################################
 #                                                                              #
-# CONFIGURATION                                                                #
+# smoog.py                                                                     #
+#   Easily encrypt files in your git repository.                               #
+#   Copyright (C) 2014 Kevin Y. Chen kyc2915@mit.edu                           #
+#                                                                              #
+# See usage instructions on github:                                            #
+#   https://github.com/kevinychen/smoog                                        #
+#                                                                              #
+# Credits to                                                                   #
+#   git-encrypt project:                                                       #
+#     https://github.com/shadowhand/git-encrypt                                #
+#     Copyright (c) 2011 Woody Gilk woody.gilk@gmail.com                       #
+#   git-encrypt-init.sh script by Jay Taylor [@jtaylor]                        #
+#     Most of this python code is based on this shell script.                  #
 #                                                                              #
 ################################################################################
+
+
+# CONFIGURATION
 
 # Salt sequence: 16-character hex string. Can be generated with
 #   $ python -c "import random; print '%016x' % random.randrange(16 ** 16)"
@@ -15,15 +30,36 @@ SENSITIVE_FILES = ['secret.txt']
 
 ################################################################################
 #                                                                              #
-# SMOOG                                                                        #
+# LICENSE                                                                      #
 #                                                                              #
-# Credits to                                                                   #
-#   https://github.com/shadowhand/git-encrypt/blob/develop/git-encrypt-init.sh #
-#   by Jay Taylor [@jtaylor]                                                   #
+# Permission is hereby granted, free of charge, to any person obtaining a copy #
+#   of this software and associated documentation files (the "Software"), to   #
+#   deal in the Software without restriction, including without limitation the #
+#   rights to use, copy, modify, merge, publish, distribute, sublicense,       #
+#   and/or sell copies of the Software, and to permit persons to whom the      #
+#   Software is furnished to do so, subject to the following conditions:       #
 #                                                                              #
-# DO NOT EDIT ANYTHING BELOW                                                   #
+#   The above copyright notice and this permission notice shall be included in #
+#   all copies or substantial portions of the Software.                        #
+#                                                                              #
+#   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR #
+#   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,   #
+#   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL    #
+#   THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER #
+#   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING    #
+#   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER        #
+#   DEALINGS IN THE SOFTWARE.                                                  #
 #                                                                              #
 ################################################################################
+
+
+##############################
+#                            #
+# SMOOG Implementation       #
+#                            #
+# DO NOT EDIT ANYTHING BELOW #
+#                            #
+##############################
 
 import os
 import shutil

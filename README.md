@@ -1,7 +1,7 @@
 smoog
 =====
 
-Easily encrypt some list of files in your git repository.
+Easily encrypt files in your git repository.
 
 ## Usage
 
