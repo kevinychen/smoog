@@ -4,7 +4,12 @@
 #                                                                              #
 ################################################################################
 
-# Files to be encrypted.
+# Salt sequence: 16-character hex string. Can be generated with
+#   $ python -c "import random; print '%016x' % random.randrange(16 ** 16)"
+SALT = '8c6a5d9ae074282e'
+
+# Files to be encrypted: list of patterns recognized by gitattributes:
+#  https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html.
 SENSITIVE_FILES = ['secret.txt']
 
 
@@ -70,18 +75,14 @@ openssl enc -d -base64 -aes-256-ecb -k $PASS_FIXED -in "$1" 2> /dev/null || cat 
 
 # Git config links to filter scripts
 SCRIPT_CONFIG = """[filter "openssl"]
-    smudge = .git/smoog/smudge_filter_openssl
-    clean = .git/smoog/clean_filter_openssl
+	smudge = .git/smoog/smudge_filter_openssl
+	clean = .git/smoog/clean_filter_openssl
 [diff "openssl"]
-    textconv = .git/smoog/diff_filter_openssl
+	textconv = .git/smoog/diff_filter_openssl
 """
 
 # Initialize SMOOG
 def init():
-    # Generate random salt.
-    print 'Generating salt...'
-    salt = '%016x' % random.randrange(16 ** 16)
-
     # Prompt user for password.
     password = ''
     while True:
@@ -101,7 +102,7 @@ def init():
     for filterType in SSL_SCRIPTS:
         filterScriptPath = os.path.join(SMOOG_DIR, filterType)
         with open(filterScriptPath, 'w') as fh:
-            fh.write(SSL_SCRIPTS[filterType].format(password, salt))
+            fh.write(SSL_SCRIPTS[filterType].format(password, SALT))
         os.chmod(filterScriptPath,
                 os.stat(filterScriptPath).st_mode | stat.S_IEXEC)
 
@@ -115,7 +116,7 @@ def init():
     else:
         print 'info: applying openssl filter/diff to this clone...'
         with open(GIT_CONFIG, 'a') as fh:
-            fh.write(SCRIPT_CONFIG)
+            fh.write(SCRIPT_CONFIG.format(SMOOG_DIR))
 
     # Add sensitive files to GIT_ATTRIBUTES
     print 'info: initializing file', GIT_ATTRIBUTES
