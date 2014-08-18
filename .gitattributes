@@ -1,2 +1,0 @@
-sensitive2.txt filter=openssl diff=openssl
-sensitive3.txt filter=openssl diff=openssl
